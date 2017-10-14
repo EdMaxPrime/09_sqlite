@@ -11,11 +11,12 @@ c = db.cursor()    #facilitate db ops
 #INSERT YOUR POPULATE CODE IN THIS ZONE
 peepsFile = open("peeps.csv", "r")
 students = csv.DictReader(peepsFile)
-for row in students:
-    print row
 
-command = ""          #put SQL statement in this string
+command = "CREATE TABLE peeps (id INTEGER PRIMARY KEY, name STRING, age INTEGER);"
 c.execute(command)    #run SQL statement
+for row in students:
+    values = '(' + row['id'] + ', "' + row['name'] + '", ' + row['age'] + ');'
+    c.execute("INSERT INTO peeps VALUES " + values)
 
 #==========================================================
 db.commit() #save changes
